@@ -6,6 +6,7 @@ import com.example.simpleauth.payload.LoginDto;
 import com.example.simpleauth.payload.RegisterDto;
 import com.example.simpleauth.repository.RoleRepository;
 import com.example.simpleauth.repository.UserRepository;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,7 +46,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody RegisterDto registerDto) {
+    public ResponseEntity<String> registerUser(@Valid @RequestBody RegisterDto registerDto) {
         if (userRepository.existsByEmail(registerDto.getEmail())) {
             return new ResponseEntity<>("Email is already taken.", HttpStatus.BAD_REQUEST);
         }
